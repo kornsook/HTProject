@@ -88,9 +88,6 @@ if __name__ == "__main__":
     parser.add_argument("--base-dir", type=str, help="Base directory", default = "./")
 
     args = parser.parse_args()
-    if sys.argv[2] not in ["train", "test"]:
-        print("Usage: python htriskpred_nsf_project.py [train|test]")
-        exit(1)
     additional_tokens = [
         "[PHONE]",
         "[NAME]",
