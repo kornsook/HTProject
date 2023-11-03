@@ -23,10 +23,13 @@ def compute_metrics(eval_pred):
     positive_scores = prediction_scores[:,1]
     metrics = clf_metrics.compute(predictions=predictions, references=labels)
     auc_score = auc_metric.compute(prediction_scores=positive_scores, references=labels)
-    precisions, recalls, _ = precision_recall_curve(labels, positive_scores)
+    precisions, recalls, thresholds = precision_recall_curve(labels, positive_scores)
     pr_auc = auc(recalls, precisions)
     metrics = dict(list(metrics.items()) + list(auc_score.items()))
     metrics['pr_auc'] = pr_auc
+    f1_scores = 2*recalls*precisions/(recalls+precisions)
+    metrics['best_threshold'] = thresholds[np.argmax(f1_scores)]
+    metrics['best_f1']=np.max(f1_scores)
     return metrics
 
 def get_model(pretrained_model_name_or_path: str, additional_tokens = []):

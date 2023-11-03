@@ -20,7 +20,7 @@ def set_dependent_config(args: TrainingArguments):
 def main_train():
     mydataset = get_dataset_json(data_dir, 0.95, 0.05)
     tokenized_datasets = get_tokenizer_dataset(mydataset, tokenizer, task=task)
-
+    
     default_args = {
         "output_dir": model_dir,
         "evaluation_strategy": "epoch",
@@ -44,7 +44,6 @@ def main_train():
         data_collator,
         compute_metrics,
     )
-
 #     sample_explainer(
 #         mydataset["train"][1551]["text"],
 #         model,
