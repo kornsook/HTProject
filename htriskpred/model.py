@@ -27,7 +27,7 @@ def compute_metrics(eval_pred):
     pr_auc = auc(recalls, precisions)
     metrics = dict(list(metrics.items()) + list(auc_score.items()))
     metrics['pr_auc'] = pr_auc
-    f1_scores = 2*recalls*precisions/(recalls+precisions)
+    f1_scores = 2*recalls*precisions/(recalls+precisions+0.000001)
     metrics['best_threshold'] = thresholds[np.argmax(f1_scores)]
     metrics['best_f1']=np.max(f1_scores)
     return metrics
